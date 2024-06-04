@@ -1,0 +1,57 @@
+Certainly! Here's a sample code snippet that you can run on your own server to handle custom lurk commands for multiple users. This example uses Node.js to interact with the StreamElements Chat Commands API.
+
+
+First, make sure you have Node.js installed on your server. Then you can create a new Node.js project, install the necessary dependencies, and use the following code snippet as a starting point:
+
+
+javascript
+Copy code
+
+const axios = require('axios');
+
+// Define your StreamElements API key and endpoint URL
+const apiKey = 'YOUR_API_KEY';
+const endpointUrl = 'YOUR_API_ENDPOINT_URL';
+
+// Define custom messages for users
+const customMessages = {
+    'user1': 'Welcome back, {user}! Thanks for lurking!',
+    'user2': 'Hey there, {user}! Enjoy your lurk!',
+    'user3': 'Nice to see you lurking, {user}! Keep it up!',
+    // Add more users and their custom messages as needed
+};
+
+// Function to handle custom lurk commands
+const handleLurkCommand = async (username) => {
+    const customMessage = customMessages[username.toLowerCase()] || 'Shh, someone\'s lurking...';
+    const message = customMessage.replace('{user}', username);
+
+    try {
+        const response = await axios.post(endpointUrl, {
+            apiKey: apiKey,
+            command: '!lurk',
+            response: message
+        });
+        console.log(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+// Example: Handle lurk command for a specific user
+handleLurkCommand('user1');
+
+In this code snippet:
+
+
+
+Replace 'YOUR_API_KEY' with your actual StreamElements API key.
+
+Replace 'YOUR_API_ENDPOINT_URL' with the correct API endpoint URL provided by StreamElements.
+
+Customize the customMessages object with the desired usernames and messages.
+
+The handleLurkCommand function sends a POST request to the StreamElements API to set up the custom lurk command for a specific user.
+
+
+You can save this code to a file (e.g., lurkCommandHandler.js), install the axios package using npm, and run it on your server using Node.js to handle custom lurk commands for multiple users. Let me know if you need further assistance or modifications to this code!
